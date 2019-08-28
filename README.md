@@ -1,2 +1,3 @@
-# objects_api_docs
-The documentation for the Objects API implementation in the Java SDK
+# Objects API documentation for the Java SDK
+
+Please refer to the specific `.md` files above.
