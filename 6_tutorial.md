@@ -46,9 +46,9 @@ pubnub.addListener(new SubscribeCallback() {
 | Method           |    Values    | Note |
 | ---------------- | ---------- |---------- |
 | `getEvent()` |    `String`    | Applies to all. Returns the event name. Could be "create", "update" or "delete".|
-| `getChannel()` |    `String`    | Applies to all. Returns the channel name which received the event.|
+| `getChannel()` |    `String`    | Applies to all. Returns the channel name which the event was published to.|
 | `getPublisher()` |    `String`    | Applies to all. Returns the UUID of the user who generated the event.|
-| `getTimetoken()` |    `String`    | Applies to all. Returns the timetoken of when the event was created.|
+| `getTimetoken()` |    `Long`    | Applies to all. Returns the timetoken of when the event was created.|
 | `getUser()`  |    `PNUser`    | Only for `PNUserResult`. Returns the user for which the event applies to.|
 | `getSpace()` |    `PNSpace`    | Only for `PNSpaceResult`. Returns the space for which the event applies to.|
 | `getData()` |    `JsonElement`    | Only for `PNMembershipResult`. Returns the membership for which the event applies to.|
