@@ -21,11 +21,9 @@ However, to manage memberships on your own and to avoid creating ad-hoc json dat
 ```java
 Membership membershipFoo = Membership.spaceId("foo"); // instantiates a Membership
 
-Membership membershipBar = Membership.spaceId("bar").custom(new HashMap<String, Object> () {
-    {
-        put("starred", true);
-    }
-}); // instantiates a Membership and also sets its custom data
+HashMap<String, Object> customMap = new HashMap<>();
+customMap.put("starred", true);
+Membership membershipBar = Membership.spaceId("bar").custom(customMap); // instantiates a Membership and also sets its custom data
 ```
 
 ## GET MEMBERSHIPS
@@ -200,15 +198,14 @@ pubnub.manageMemberships()
 #### Add memberships with custom data
 
 ```java
+HashMap<String, Object> customMap = new HashMap<>();
+customMap.put("color", "yellow");
+customMap.put("private", true);
+customMap.put("stars", 25);
+
 pubnub.manageMemberships()
     .userId("user_1")
-    .add(Membership.spaceId("space_1").custom(new HashMap<String, Object> () {  // add custom data
-        {
-            put("color", "yellow");
-            put("private", true);
-            put("stars", 25);
-        }
-    }))
+    .add(Membership.spaceId("space_1").custom(customMap))
     .includeFields(PNMembershipFields.CUSTOM) // let's retreive it too
     .async(new PNCallback<PNManageMembershipsResult> () {
         @Override
@@ -228,15 +225,14 @@ pubnub.manageMemberships()
 #### Update memberships
 
 ```java
+HashMap<String, Object> customMap = new HashMap<>();
+customMap.put("color", "green");
+customMap.put("starred", false);
+
 pubnub.manageMemberships()
     .userId("user_1")
     .update(Membership.spaceId("space_1"),
-            Membership.spaceId("space_2").custom(new HashMap<String, Object> () {
-            {
-                put("color", "green");
-                put("starred", false);
-            }
-            }),
+            Membership.spaceId("space_2").custom(customMap),
             Membership.spaceId("space_3"))
     .async(new PNCallback<PNManageMembershipsResult> () {
         @Override

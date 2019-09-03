@@ -14,10 +14,11 @@ Other properties (except the `id`) are settable via setters:
 
 ```java
 pnSpace.setDescription("A lovely space.");
-pnSpace.setCustom(new HashMap<String, Object>() {{
-    put("color", "blue");
-    put("public", true);
-}});
+
+HashMap<String, Object> customSpaceMap = new HashMap<>();
+customSpaceMap.put("color", "blue");
+customSpaceMap.put("public", true);
+pnSpace.setCustom(customSpaceMap);
 ```
 
 The `PNSpace` class features other properties too, which are not settable directly. Instead, the server is responsible for them and assigns values in different scenarios (e.g. when getting a space from PubNub).
@@ -373,12 +374,12 @@ pubnub.updateSpace()
 ```java
 PNSpace pnSpace = new PNSpace("space_1", "foo"); // assume this space is already created
 pnSpace.setEmail("foo@bar.com"); // set a new email address
-pnSpace.setCustom(new HashMap<String Object > () {
-    {
-        put("city", "SF");
-        put("age", "22");
-    }
-}); // set another custom object
+
+// set another custom object
+HashMap <String, Object> customSpaceMap = new HashMap<> ();
+customSpaceMap.put("city", "SF");
+customSpaceMap.put("limit", 30);
+pnSpace.setCustom(customSpaceMap);
 
 pubnub.updateSpace()
     .includeFields(PNSpaceFields.CUSTOM)

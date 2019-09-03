@@ -21,11 +21,9 @@ However, to manage members on your own and to avoid creating ad-hoc json data, a
 ```java
 Member memberFoo = Member.userId("foo"); // instantiates a Member
 
-Member memberBar = Member.userId("bar").custom(new HashMap<String, Object> () {
-    {
-        put("starred", true);
-    }
-}); // instantiates a Member and also sets its custom data
+HashMap<String, Object> customMap = new HashMap<>();
+customMap.put("starred", true);
+Member memberBar = Member.userId("bar").custom(customMap); // instantiates a Member and also sets its custom data
 ```
 
 ## GET MEMBERS
@@ -200,15 +198,14 @@ pubnub.manageMembers()
 #### Add members with custom data
 
 ```java
+HashMap<String, Object> customMap = new HashMap<>();
+customMap.put("color", "yellow");
+customMap.put("private", true);
+customMap.put("stars", 25);
+
 pubnub.manageMembers()
     .spaceId("space_1")
-    .add(Member.userId("user_1").custom(new HashMap<String, Object> () {  // add custom data
-        {
-            put("color", "yellow");
-            put("private", true);
-            put("stars", 25);
-        }
-    }))
+    .add(Member.userId("user_1").custom(customMap)) // add custom data
     .includeFields(PNMemberFields.CUSTOM) // let's retreive it too
     .async(new PNCallback<PNManageMembersResult> () {
         @Override
@@ -228,15 +225,14 @@ pubnub.manageMembers()
 #### Update members
 
 ```java
+HashMap<String, Object> customMap = new HashMap<>();
+customMap.put("color", "green");
+customMap.put("starred", false);
+
 pubnub.manageMembers()
     .spaceId("space_1")
     .update(Member.userId("user_1"),
-            Member.userId("user_2").custom(new HashMap<String, Object> () {
-            {
-                put("color", "green");
-                put("starred", false);
-            }
-            }),
+            Member.userId("user_2").custom(customMap),
             Member.userId("user_3"))
     .async(new PNCallback<PNManageMembersResult> () {
         @Override

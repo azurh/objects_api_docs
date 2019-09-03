@@ -15,10 +15,11 @@ Other properties (except the `id`) are settable via setters:
 ```java
 pnUser.setEmail("foo@bar.com");
 pnUser.setExternalId("user_foo");
-pnUser.setCustom(new HashMap<String, Object>() {{
-    put("color", "red");
-    put("role", "student");
-}});
+
+HashMap<String, Object> customUserMap = new HashMap<>();
+customUserMap.put("role", "student");
+customUserMap.put("enrolled", true);
+pnUser.setCustom(customUserMap);
 ```
 
 The `PNUser` class features other properties too, which are not settable directly. Instead, the server is responsible for them and assigns values in different scenarios (e.g. when getting a user from PubNub).
@@ -378,17 +379,17 @@ pubnub.updateUser()
 ```java
 PNUser pnUser = new PNUser("user_1", "foo"); // assume this user is already created
 pnUser.setEmail("foo@bar.com"); // set a new email address
-pnUser.setCustom(new HashMap <String Object > () {
-    {
-        put("city", "SF");
-        put("age", "22");
-    }
-}); // set another custom object
+
+// set another custom object
+HashMap <String, Object> customUserMap = new HashMap<> ();
+customUserMap.put("city", "SF");
+customUserMap.put("age", 22);
+pnUser.setCustom(customUserMap);
 
 pubnub.updateUser()
     .includeFields(PNUserFields.CUSTOM)
     .user(pnUser)
-    .async(new PNCallback<PNUpdateUserResult> () {
+    .async(new PNCallback < PNUpdateUserResult > () {
         @Override
         public void onResponse(PNUpdateUserResult result, PNStatus status) {
             if (!status.isError()) {
