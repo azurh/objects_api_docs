@@ -415,7 +415,7 @@ Deletes the specified space object.
 To `Delete a space` you can use the following method(s) in the Java V4 SDK:
 
 ```java
-this.pubnub.deletSpace().space("space_1");
+this.pubnub.deleteSpace().space("space_1");
 ```
 
 | Parameter |    Type    | Required | Description |
